@@ -12,7 +12,6 @@ public class UserData {
 	private String name;
 	@NotEmpty
 	private String email;
-	@NotEmpty
 	private String password;
 
 	public UserData() {

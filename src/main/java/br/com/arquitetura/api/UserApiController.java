@@ -2,7 +2,10 @@ package br.com.arquitetura.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,12 +37,12 @@ public class UserApiController {
 	}
 	
 	@PostMapping
-	private ResponseEntity<Long> saveUser(@RequestBody UserData userData) {
-		return ResponseEntity.ok(userService.save(userData));
+	private ResponseEntity<Long> saveUser(@RequestBody @Valid UserData userData) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userData));
 	}
 	
 	@PutMapping()
-	public ResponseEntity<UserData> updateUser(@RequestBody UserData userData){
+	public ResponseEntity<UserData> updateUser(@RequestBody @Valid UserData userData){
 		userService.update(userData);
 		return ResponseEntity.ok().build();
 	}
