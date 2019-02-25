@@ -3,10 +3,11 @@ package br.com.arquitetura.service;
 import java.util.List;
 
 import br.com.arquitetura.data.UserData;
+import br.com.arquitetura.entity.User;
 
 public interface UserService {
 
-	Long save(UserData userData);
+	User save(UserData userData);
 
 	List<UserData> findAll();
 

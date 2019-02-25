@@ -20,10 +20,10 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	
 	@Override
-	public Long save(UserData userData) {
+	public User save(UserData userData) {
+		userData.validateCreate();
 		User user = UserConverter.convertToUser(userData);
-		User userSaved = userRepository.save(user);
-		return userSaved.getUid();
+		return userRepository.save(user);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void update(UserData userData) {
-		userData.validateUserDataUpdate();
+		userData.validateUpdate();
 		User userDataBase = getUserById(userData.getUid());
 		User user = UserConverter.convertToUser(userDataBase, userData);
 		userRepository.save(user);

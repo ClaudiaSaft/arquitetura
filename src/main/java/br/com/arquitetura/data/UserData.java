@@ -1,6 +1,6 @@
 package br.com.arquitetura.data;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
 
 import br.com.arquitetura.exception.FieldRequiredException;
 
@@ -8,9 +8,8 @@ public class UserData {
 
 	private Long uid;
 	private boolean active;
-	@NotEmpty
 	private String name;
-	@NotEmpty
+	@Email
 	private String email;
 	private String password;
 
@@ -57,9 +56,27 @@ public class UserData {
 		this.password = password;
 	}
 
-	public void validateUserDataUpdate() {
+	public void validateCreate() {
+		validateRequiredFields();
+	}
+	
+	public void validateRequiredFields() {
+		if(name == null) {
+			throw new FieldRequiredException("user name");
+		}
+		if(email == null) {
+			throw new FieldRequiredException("user email");
+		}
+	}
+	
+	public void validateUpdate() {
+		validateRequiredUid();
+		validateRequiredFields();
+	}
+
+	private void validateRequiredUid() {
 		if(uid == null) {
-			throw new FieldRequiredException("uid");
+			throw new FieldRequiredException("user uid");
 		}
 	}
 

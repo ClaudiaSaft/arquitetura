@@ -40,6 +40,8 @@ public class User {
 	
 	
 	public User() {
+		this.active = true;
+		this.create = LocalDateTime.now(ZoneId.of("Z"));
 	}
 	
 	public User(Long uid, String name, String email, String password) {
@@ -48,8 +50,7 @@ public class User {
 	}
 	
 	public User(String name, String email, String password) {
-		this.active = true;
-		this.create = LocalDateTime.now(ZoneId.of("Z"));
+		this();
 		this.name = name;
 		this.email = email;
 		this.password = password;

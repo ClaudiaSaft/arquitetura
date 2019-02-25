@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.arquitetura.data.UserData;
+import br.com.arquitetura.entity.User;
 import br.com.arquitetura.service.UserService;
 
 @RestController
@@ -38,7 +39,8 @@ public class UserApiController {
 	
 	@PostMapping
 	private ResponseEntity<Long> saveUser(@RequestBody @Valid UserData userData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userData));
+		User user = userService.save(userData);
+		return ResponseEntity.status(HttpStatus.CREATED).body(user.getUid());
 	}
 	
 	@PutMapping()

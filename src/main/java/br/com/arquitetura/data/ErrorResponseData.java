@@ -1,12 +1,12 @@
 package br.com.arquitetura.data;
 
-public class ErrorResponse {
+public class ErrorResponseData {
 
 	private Integer status;
 	private String error;
 	private String message;
 	
-	public ErrorResponse(Integer status, String error, String message) {
+	public ErrorResponseData(Integer status, String error, String message) {
 		this.status = status;
 		this.error = error;
 		this.message = message;
