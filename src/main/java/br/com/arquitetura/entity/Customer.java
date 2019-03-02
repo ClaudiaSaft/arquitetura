@@ -42,7 +42,13 @@ public class Customer {
 	@Column(name="dt_update")
 	private LocalDateTime update;
 	
+	public Customer() {
+	}
 	
+	public Customer(Long uidCustomer) {
+		this.uid = uidCustomer;
+	}
+
 	public Long getUid() {
 		return uid;
 	}

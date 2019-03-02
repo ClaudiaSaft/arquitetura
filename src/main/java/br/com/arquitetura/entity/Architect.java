@@ -35,7 +35,13 @@ public class Architect {
 	@Column(name="dt_update")
 	private LocalDateTime update;
 	
+	public Architect() {
+	}
 	
+	public Architect(Long uidArchitect) {
+		this.uid = uidArchitect;
+	}
+
 	public Long getUid() {
 		return uid;
 	}

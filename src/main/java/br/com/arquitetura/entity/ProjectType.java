@@ -37,6 +37,10 @@ public class ProjectType {
 		this.create = LocalDateTime.now(ZoneId.of("Z"));
 	}
 	
+	public ProjectType(Long uidProjectType) {
+		this.uid = uidProjectType;
+	}
+
 	public Long getUid() {
 		return uid;
 	}
