@@ -1,0 +1,23 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	<changeSet id="1" author="saft">
+		<createTable tableName="architects">
+			<column name="uid_architect" type="bigint" autoIncrement="true">
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_architects" />
+    		</column>
+			<column name="uid_user" type="bigint" >
+    			<constraints nullable="false" />
+    		</column>
+			<column name="nr_whatsapp" type="varchar(20)"  >
+    		</column>
+			<column name="nr_comercial_phone" type="varchar(20)"  >
+    		</column>
+    		<column name="dt_update" type="datetime">
+    		</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

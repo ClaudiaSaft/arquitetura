@@ -2,7 +2,7 @@ package br.com.arquitetura.data;
 
 import br.com.arquitetura.exception.FieldRequiredException;
 
-public class AddressData {
+public class AddressData extends ValidationFiedsData{
 
 	private Long uid;
 	private String name;
@@ -49,11 +49,24 @@ public class AddressData {
 		this.number = number;
 	}
 	
-	public void validateCreate() {
-		validateRequiredFields();
+	@Override
+	protected void validateRequiredFieldsUpdate() {
+		validaRequiredFields();
 	}
 	
-	private void validateRequiredFields() {
+	@Override
+	protected void validateRequiredUid() {
+		if(uid == null) {
+			throw new FieldRequiredException("address uid");
+		}
+	}
+
+	@Override
+	protected void validateRequiredFieldsCreate() {
+		validaRequiredFields();
+	}
+
+	private void validaRequiredFields() {
 		if(name == null) {
 			throw new FieldRequiredException("address name");
 		}
@@ -65,17 +78,6 @@ public class AddressData {
 		}
 		if(number == null) {
 			throw new FieldRequiredException("address number");
-		}
-	}
-	
-	public void validateUpdate() {
-		validateRequiredUid();
-		validateRequiredFields();
-	}
-
-	private void validateRequiredUid() {
-		if(uid == null) {
-			throw new FieldRequiredException("address uid");
 		}
 	}
 }

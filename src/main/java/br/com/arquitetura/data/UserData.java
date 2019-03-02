@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 
 import br.com.arquitetura.exception.FieldRequiredException;
 
-public class UserData {
+public class UserData extends ValidationFiedsData{
 
 	private Long uid;
 	private boolean active;
@@ -56,11 +56,12 @@ public class UserData {
 		this.password = password;
 	}
 
-	public void validateCreate() {
+	@Override
+	protected void validateRequiredFieldsUpdate() {
 		validateRequiredFields();
 	}
-	
-	public void validateRequiredFields() {
+
+	private void validateRequiredFields() {
 		if(name == null) {
 			throw new FieldRequiredException("user name");
 		}
@@ -69,15 +70,16 @@ public class UserData {
 		}
 	}
 	
-	public void validateUpdate() {
-		validateRequiredUid();
-		validateRequiredFields();
-	}
-
-	private void validateRequiredUid() {
+	@Override
+	protected void validateRequiredUid() {
 		if(uid == null) {
 			throw new FieldRequiredException("user uid");
 		}
+	}
+
+	@Override
+	protected void validateRequiredFieldsCreate() {
+		validateRequiredFields();
 	}
 
 }

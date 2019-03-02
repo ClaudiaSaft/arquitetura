@@ -14,11 +14,11 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customer")
-public class Customer {
+@Table(name="architects")
+public class Architect {
 
 	@Id
-	@Column(name="uid_customer")
+	@Column(name="uid_architect")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long uid;
 	
@@ -26,15 +26,8 @@ public class Customer {
 	@JoinColumn(name="uid_user")
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name="uid_address")
-	private Address address;
-	
 	@Column(name="nr_whatsapp")
 	private String whatsapp;
-	
-	@Column(name="nr_personal_phone")
-	private String personalPhone;
 	
 	@Column(name="nr_comercial_phone")
 	private String comercialPhone;
@@ -55,28 +48,12 @@ public class Customer {
 		this.user = user;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	public String getWhatsapp() {
 		return whatsapp;
 	}
 
 	public void setWhatsapp(String whatsapp) {
 		this.whatsapp = whatsapp;
-	}
-
-	public String getPersonalPhone() {
-		return personalPhone;
-	}
-
-	public void setPersonalPhone(String personalPhone) {
-		this.personalPhone = personalPhone;
 	}
 
 	public String getComercialPhone() {

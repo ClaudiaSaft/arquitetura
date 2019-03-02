@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.arquitetura.converter.UserConverter;
 import br.com.arquitetura.data.UserData;
 import br.com.arquitetura.entity.User;
-import br.com.arquitetura.exception.UserNotFoundException;
+import br.com.arquitetura.exception.ObjectNotFoundException;
 import br.com.arquitetura.repository.UserRepository;
 import br.com.arquitetura.service.UserService;
 
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 		if(userOptional.isPresent()) {
 			return userOptional.get();
 		} else {
-			throw new UserNotFoundException();
+			throw new ObjectNotFoundException("Usuário");
 		}
 	}
 }

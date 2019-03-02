@@ -2,22 +2,16 @@ package br.com.arquitetura.api;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.arquitetura.data.UserData;
-import br.com.arquitetura.entity.User;
 import br.com.arquitetura.service.UserService;
 
 @RestController
@@ -35,18 +29,6 @@ public class UserApiController {
 	@GetMapping(path="/{uidUser}")
 	public ResponseEntity<UserData> getUser(@PathVariable("uidUser") Long uidUser){
 		return ResponseEntity.ok(userService.findByUid(uidUser));
-	}
-	
-	@PostMapping
-	private ResponseEntity<Long> saveUser(@RequestBody @Valid UserData userData) {
-		User user = userService.save(userData);
-		return ResponseEntity.status(HttpStatus.CREATED).body(user.getUid());
-	}
-	
-	@PutMapping()
-	public ResponseEntity<UserData> updateUser(@RequestBody @Valid UserData userData){
-		userService.update(userData);
-		return ResponseEntity.ok().build();
 	}
 	
 	@PatchMapping(path="/inactivate/{uidUser}")

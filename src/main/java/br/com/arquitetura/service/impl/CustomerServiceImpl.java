@@ -13,7 +13,7 @@ import br.com.arquitetura.data.CustomerData;
 import br.com.arquitetura.entity.Address;
 import br.com.arquitetura.entity.Customer;
 import br.com.arquitetura.entity.User;
-import br.com.arquitetura.exception.CustomerNotFoundException;
+import br.com.arquitetura.exception.ObjectNotFoundException;
 import br.com.arquitetura.repository.CustomerRepository;
 import br.com.arquitetura.service.AddressService;
 import br.com.arquitetura.service.CustomerService;
@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	
 	@Override
-	public Customer save(@Valid CustomerData customerData) {
+	public Long save(@Valid CustomerData customerData) {
 		customerData.validateCreate();
 		
 		User user = userService.save(customerData.getUser());
@@ -40,7 +40,9 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = CustomerConverter.convertToCustomer(customerData);
 		customer.setUser(user);
 		customer.setAddress(address);
-		return customerRepository.save(customer);
+		
+		Customer customerSaved = customerRepository.save(customer);
+		return customerSaved.getUid();
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if(customerOptional.isPresent()) {
 			return customerOptional.get();
 		} else {
-			throw new CustomerNotFoundException();
+			throw new ObjectNotFoundException("Cliente");
 		}
 	}
 
