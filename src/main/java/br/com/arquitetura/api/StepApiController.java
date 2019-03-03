@@ -14,29 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.arquitetura.data.ProjectData;
-import br.com.arquitetura.service.ProjectService;
+import br.com.arquitetura.data.StepData;
+import br.com.arquitetura.service.StepService;
 
 @RestController
-@RequestMapping(path="/project")
-public class ProjectApiController {
+@RequestMapping(path="/step")
+public class StepApiController {
 
 	@Autowired
-	private ProjectService projectService;
+	private StepService stepService;
 	
 	@GetMapping
-	public ResponseEntity<List<ProjectData>> getProjects(){
-		return ResponseEntity.ok(projectService.findAll());
+	public ResponseEntity<List<StepData>> getSteps(){
+		return ResponseEntity.ok(stepService.findAll());
 	}
 	
 	@PostMapping
-	private ResponseEntity<Long> saveProject(@RequestBody @Valid ProjectData projectData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectData));
+	private ResponseEntity<Long> saveStep(@RequestBody @Valid StepData stepData) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(stepService.save(stepData));
 	}
 	
-	@PutMapping
-	private ResponseEntity<Void> updateProject(@RequestBody @Valid ProjectData projectData) {
-		projectService.update(projectData);
+	@PutMapping()
+	public ResponseEntity<Void> updateStep(@RequestBody @Valid StepData stepData){
+		stepService.update(stepData);
 		return ResponseEntity.ok().build();
 	}
+	
 }

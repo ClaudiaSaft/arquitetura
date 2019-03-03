@@ -12,5 +12,7 @@
     <include file="/project/project_type.xml" relativeToChangelogFile="true"/>
     <include file="/project/project_status.xml" relativeToChangelogFile="true"/>
     <include file="/project/project.xml" relativeToChangelogFile="true"/>
-
+	<include file="/project/step.xml" relativeToChangelogFile="true"/>
+    <include file="/project/project_step.xml" relativeToChangelogFile="true"/>
+	
 </databaseChangeLog>

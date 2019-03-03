@@ -25,13 +25,30 @@ public class ProjectConverter {
 		projectData.setUidArchitect(project.getArchitect().getUid());
 		projectData.setUidCustomer(project.getCustomer().getUid());
 		projectData.setUidProjectType(project.getType().getUid());
+		projectData.setProjectSteps(ProjectStepConverter.convertToProjectStepData(project.getSteps()));
 		return projectData;
 	}
 
 	public static Project convertToProject(ProjectData projectData) {
-		return new Project(projectData.getName(), projectData.getDescription(), 
+		Project project = new Project(projectData.getName(), projectData.getDescription(), 
 				new Customer(projectData.getUidCustomer()), new Architect(projectData.getUidArchitect()), 
 				new ProjectType(projectData.getUidProjectType()));
+		
+		project.adicionaAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
+		
+		return project;
+	}
+
+	public static Project convertToProject(Long uidProject) {
+		return new Project(uidProject);
+	}
+
+	public static Project convertToProject(Project projectDataBase, ProjectData projectData) {
+		projectDataBase.setDescription(projectData.getDescription());
+		projectDataBase.setName(projectData.getName());
+		projectDataBase.removeAllSteps();
+		projectDataBase.adicionaAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
+		return projectDataBase;
 	}
 
 }

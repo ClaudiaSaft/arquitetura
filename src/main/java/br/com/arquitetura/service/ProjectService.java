@@ -10,4 +10,6 @@ public interface ProjectService {
 
 	Long save(ProjectData projectData);
 
+	void update(ProjectData projectData);
+
 }

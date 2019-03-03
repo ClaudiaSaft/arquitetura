@@ -1,5 +1,8 @@
 package br.com.arquitetura.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.arquitetura.exception.FieldRequiredException;
 
 public class ProjectData extends ValidationFiedsData{
@@ -10,6 +13,7 @@ public class ProjectData extends ValidationFiedsData{
 	private Long uidCustomer;
 	private Long uidArchitect;
 	private Long uidProjectType;
+	private List<ProjectStepData> projectSteps;
 	
 	public Long getUid() {
 		return uid;
@@ -57,6 +61,17 @@ public class ProjectData extends ValidationFiedsData{
 
 	public void setUidProjectType(Long uidProjectType) {
 		this.uidProjectType = uidProjectType;
+	}
+	
+	public List<ProjectStepData> getProjectSteps() {
+		if (projectSteps == null) {
+			return new ArrayList<>();
+		}
+		return projectSteps;
+	}
+
+	public void setProjectSteps(List<ProjectStepData> projectSteps) {
+		this.projectSteps = projectSteps;
 	}
 
 	@Override

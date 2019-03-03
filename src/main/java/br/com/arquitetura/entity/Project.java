@@ -2,7 +2,11 @@ package br.com.arquitetura.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
@@ -51,8 +56,12 @@ public class Project {
 	@Column(name="dt_update")
 	private LocalDateTime update;
 	
+	@OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<ProjectStep> steps;
+	
 	
 	public Project() {
+		this.steps = new ArrayList<>();
 		this.status = ProjectStatusEnum.AGUARDANDO_INICIO;
 		this.create = LocalDateTime.now(ZoneId.of("Z"));
 	}
@@ -64,6 +73,10 @@ public class Project {
 		this.customer = customer;
 		this.architect = architect;
 		this.type = type;
+	}
+
+	public Project(Long uidProject) {
+		this.uid = uidProject;
 	}
 
 	public Long getUid() {
@@ -102,6 +115,19 @@ public class Project {
 		return type;
 	}
 
+	public List<ProjectStep> getSteps() {
+		return Collections.unmodifiableList(this.steps);
+	}
+	
+	public void adicionaAllSteps(List<ProjectStep> projectStep) {
+		this.steps.addAll(projectStep);
+		projectStep.stream().forEach(p -> p.setProject(this));
+	}
+
+	public void removeAllSteps() {
+		this.steps.clear();
+	}
+	
 	@PreUpdate
 	public void preUpdate() {
 		this.update = LocalDateTime.now(ZoneId.of("Z"));

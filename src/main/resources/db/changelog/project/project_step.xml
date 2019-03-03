@@ -1,0 +1,28 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	<changeSet id="1" author="saft">
+		<createTable tableName="project_steps">
+			<column name="uid_project_step" type="bigint" autoIncrement="true">
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_project_steps" />
+    		</column>
+			<column name="uid_project" type="bigint"  >
+				<constraints nullable="false" />
+    		</column>
+			<column name="uid_step" type="bigint" >
+				<constraints nullable="false" />
+    		</column>
+			<column name="cd_status" type="integer" >
+				<constraints nullable="false" />
+    		</column>
+    		<column name="dt_create" type="datetime" defaultValueDate="current_timestamp">
+    			<constraints nullable="false" />
+    		</column>
+    		<column name="dt_update" type="datetime">
+    		</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

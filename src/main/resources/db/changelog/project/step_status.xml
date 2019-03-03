@@ -1,0 +1,38 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	<changeSet id="1" author="saft">
+		<createTable tableName="step_status">
+			<column name="uid_step_status" type="bigint">
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_step_status" />
+    		</column>
+			<column name="cd_step_status" type="varchar(50)"  >
+				<constraints nullable="false" />
+    		</column>
+    		<column name="nm_step_status" type="varchar(50)"  >
+				<constraints nullable="false" />
+    		</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="2" author="saft">
+		<insert tableName="step_status">
+			<column name="uid_step_status">0</column>
+			<column name="cd_step_status">AGUARDANDO_INICIO</column>
+			<column name="nm_step_status">Aguardando Inicio</column>
+		</insert>
+		<insert tableName="step_status">
+			<column name="uid_step_status">1</column>
+			<column name="cd_step_status">EM_ANDAMENTO</column>
+			<column name="nm_step_status">Em Andamento</column>
+		</insert>
+		<insert tableName="step_status">
+			<column name="uid_step_status">2</column>
+			<column name="cd_step_status">FINALIZADO</column>
+			<column name="nm_step_status">Finalizado</column>
+		</insert>
+	</changeSet>
+</databaseChangeLog>
