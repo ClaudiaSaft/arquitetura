@@ -27,10 +27,6 @@ public class UserData extends ValidationFiedsData{
 		this.role = role;
 	}
 
-	public UserData(UserData userData, UserRole role) {
-		this(userData.getUid(), userData.getName(), userData.getEmail(), userData.getPassword(), userData.isActive(), role);
-	}
-
 	public Long getUid() {
 		return uid;
 	}
@@ -78,6 +74,9 @@ public class UserData extends ValidationFiedsData{
 		}
 		if(email == null) {
 			throw new FieldRequiredException("user email");
+		}
+		if(role == null) {
+			throw new FieldRequiredException("user role");
 		}
 	}
 	

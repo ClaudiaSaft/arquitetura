@@ -2,7 +2,6 @@ package br.com.arquitetura.data;
 
 import javax.validation.Valid;
 
-import br.com.arquitetura.enumeration.UserRole;
 import br.com.arquitetura.exception.FieldRequiredException;
 import liquibase.util.StringUtils;
 
@@ -19,7 +18,7 @@ public class ArchitectData extends ValidationFiedsData{
 	
 	public ArchitectData(Long uid, UserData userData, String whatsapp, String comercialPhone) {
 		this.uid = uid;
-		this.user = new UserData(userData, UserRole.ARCHITECT);
+		this.user = userData;
 		this.whatsapp = whatsapp;
 		this.comercialPhone = comercialPhone;
 	}

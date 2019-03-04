@@ -15,6 +15,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS);
 		web.ignoring().antMatchers(HttpMethod.GET, "/app/version");
+		web.ignoring().antMatchers(HttpMethod.POST, "/architect");
 	}
 	
 	@Override

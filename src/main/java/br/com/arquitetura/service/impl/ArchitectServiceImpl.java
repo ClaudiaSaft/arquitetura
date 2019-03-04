@@ -2,8 +2,6 @@ package br.com.arquitetura.service.impl;
 
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +23,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	private UserService userService;
 	
 	@Override
-	public Long save(@Valid ArchitectData architectData) {
+	public Long save(ArchitectData architectData) {
 		architectData.validateCreate();
 		
 		User user = userService.save(architectData.getUser());
@@ -38,7 +36,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	}
 
 	@Override
-	public void update(@Valid ArchitectData architectData) {
+	public void update(ArchitectData architectData) {
 		architectData.validateUpdate();
 		
 		Architect architectDataBase = getArchitectById(architectData.getUid());

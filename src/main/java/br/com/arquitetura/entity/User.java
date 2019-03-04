@@ -12,7 +12,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import br.com.arquitetura.enumeration.UserRole;
 
@@ -66,7 +65,7 @@ public class User {
 	}
 
 	private String encodePassword(String password) {
-		return new StandardPasswordEncoder().encode(password);
+		return new BCryptPasswordEncoder().encode(password);
 	}
 
 	public String getName() {

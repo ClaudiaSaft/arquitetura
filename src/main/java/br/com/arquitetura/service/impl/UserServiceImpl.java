@@ -2,20 +2,17 @@ package br.com.arquitetura.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.arquitetura.converter.UserConverter;
 import br.com.arquitetura.data.UserData;
 import br.com.arquitetura.data.UserDataAuth;
 import br.com.arquitetura.entity.User;
-import br.com.arquitetura.enumeration.UserRole;
 import br.com.arquitetura.exception.ObjectNotFoundException;
 import br.com.arquitetura.repository.UserRepository;
 import br.com.arquitetura.service.UserService;
@@ -95,9 +92,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		User user = getUserByEmail(username.toLowerCase());
-		User user = new User(1L, "Claudia", "claudia.saft@gmail.com", "1", UserRole.ARCHITECT);
+		User user = getUserByEmail(username.toLowerCase());
 		return new UserDataAuth(user.getUid(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
-		
 	}
 }
