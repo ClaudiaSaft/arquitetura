@@ -12,7 +12,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	AuthenticationManager authenticationManager;
+	private static final String CLIEN_ID = "apparquitetura";
+	private static final String CLIENT_SECRET = "{noop}arquiteturasc";
+	private static final String GRANT_TYPE_PASSWORD = "password";
+	private static final String AUTHORIZATION_CODE = "authorization_code";
+	private static final String REFRESH_TOKEN = "refresh_token";
+	private static final String SCOPE_READ = "read";
+	private static final String SCOPE_WRITE = "write";
+	
+	private AuthenticationManager authenticationManager;
 
 	public OAuth2AuthorizationServerConfig(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 		this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
@@ -20,7 +28,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("appdomesticas").authorizedGrantTypes("password").secret("{noop}domesticas").scopes("all");
+		clients.inMemory()
+			.withClient(CLIEN_ID)
+			.authorizedGrantTypes(GRANT_TYPE_PASSWORD, REFRESH_TOKEN, AUTHORIZATION_CODE)
+			.secret(CLIENT_SECRET)
+			.scopes(SCOPE_READ, SCOPE_WRITE);
 	}
 
 	@Override
