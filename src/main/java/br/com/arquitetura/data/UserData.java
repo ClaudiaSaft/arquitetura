@@ -2,6 +2,7 @@ package br.com.arquitetura.data;
 
 import javax.validation.constraints.Email;
 
+import br.com.arquitetura.enumeration.UserRole;
 import br.com.arquitetura.exception.FieldRequiredException;
 
 public class UserData extends ValidationFiedsData{
@@ -12,16 +13,22 @@ public class UserData extends ValidationFiedsData{
 	@Email
 	private String email;
 	private String password;
+	private UserRole role;
 
 	public UserData() {
 	}
 
-	public UserData(Long uid, String name, String email, String password, boolean active) {
+	public UserData(Long uid, String name, String email, String password, boolean active, UserRole role) {
 		this.uid = uid;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.active = active;
+		this.role = role;
+	}
+
+	public UserData(UserData userData, UserRole role) {
+		this(userData.getUid(), userData.getName(), userData.getEmail(), userData.getPassword(), userData.isActive(), role);
 	}
 
 	public Long getUid() {
@@ -54,6 +61,10 @@ public class UserData extends ValidationFiedsData{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public UserRole getRole() {
+		return role;
 	}
 
 	@Override

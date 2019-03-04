@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+
+import br.com.arquitetura.enumeration.UserRole;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -32,6 +37,9 @@ public class User {
 	@Column(name="fl_active")
 	private boolean active;
 	
+	@Column(name="cd_role")
+	private UserRole role;
+	
 	@Column(name="dt_create")
 	private LocalDateTime create;
 
@@ -44,16 +52,21 @@ public class User {
 		this.create = LocalDateTime.now(ZoneId.of("Z"));
 	}
 	
-	public User(Long uid, String name, String email, String password) {
-		this(name, email, password);
+	public User(Long uid, String name, String email, String password, UserRole role) {
+		this(name, email, password, role);
 		this.uid = uid;
 	}
 	
-	public User(String name, String email, String password) {
+	public User(String name, String email, String password, UserRole role) {
 		this();
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.email = email.toLowerCase();
+		this.password = encodePassword(password);
+		this.role = role;
+	}
+
+	private String encodePassword(String password) {
+		return new StandardPasswordEncoder().encode(password);
 	}
 
 	public String getName() {
@@ -69,7 +82,7 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 
 	public String getPassword() {
@@ -77,7 +90,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = encodePassword(password);
 	}
 
 	public Long getUid() {
@@ -90,6 +103,10 @@ public class User {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public UserRole getRole() {
+		return role;
 	}
 	
 	@PreUpdate

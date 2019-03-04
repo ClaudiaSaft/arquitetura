@@ -21,6 +21,9 @@
 			<column name="fl_active" type="boolean">
     			<constraints nullable="false" />
     		</column>
+			<column name="cd_role" type="integer">
+    			<constraints nullable="false" />
+    		</column>
     		<column name="dt_create" type="datetime" defaultValueDate="current_timestamp">
     			<constraints nullable="false" />
     		</column>

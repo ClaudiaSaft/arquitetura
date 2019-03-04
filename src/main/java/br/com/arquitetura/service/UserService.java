@@ -2,10 +2,12 @@ package br.com.arquitetura.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import br.com.arquitetura.data.UserData;
 import br.com.arquitetura.entity.User;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
 
 	User save(UserData userData);
 

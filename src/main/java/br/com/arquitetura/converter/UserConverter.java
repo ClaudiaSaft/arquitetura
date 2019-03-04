@@ -9,7 +9,7 @@ import br.com.arquitetura.entity.User;
 public class UserConverter {
 
 	public static User convertToUser(UserData userData) {
-		return new User(userData.getName(), userData.getEmail(), userData.getPassword());
+		return new User(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getRole());
 	}
 	
 	public static User convertToUser(User user, UserData userData) {
@@ -25,7 +25,7 @@ public class UserConverter {
 	}
 
 	public static UserData convertToUserData(User user) {
-		return new UserData(user.getUid(), user.getName(), user.getEmail(), user.getPassword(), user.isActive());
+		return new UserData(user.getUid(), user.getName(), user.getEmail(), user.getPassword(), user.isActive(), user.getRole());
 	}
 
 }
