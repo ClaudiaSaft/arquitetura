@@ -28,7 +28,7 @@ public class ProjectApiController {
 	public ResponseEntity<List<ProjectData>> getProjects(){
 		return ResponseEntity.ok(projectService.findAll());
 	}
-	
+
 	@PostMapping
 	private ResponseEntity<Long> saveProject(@RequestBody @Valid ProjectData projectData) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectData));

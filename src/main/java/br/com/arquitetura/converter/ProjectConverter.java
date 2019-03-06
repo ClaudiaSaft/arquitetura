@@ -34,7 +34,7 @@ public class ProjectConverter {
 				new Customer(projectData.getUidCustomer()), new Architect(projectData.getUidArchitect()), 
 				new ProjectType(projectData.getUidProjectType()));
 		
-		project.adicionaAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
+		project.addAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
 		
 		return project;
 	}
@@ -46,8 +46,6 @@ public class ProjectConverter {
 	public static Project convertToProject(Project projectDataBase, ProjectData projectData) {
 		projectDataBase.setDescription(projectData.getDescription());
 		projectDataBase.setName(projectData.getName());
-		projectDataBase.removeAllSteps();
-		projectDataBase.adicionaAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
 		return projectDataBase;
 	}
 

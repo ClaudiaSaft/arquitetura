@@ -119,17 +119,27 @@ public class Project {
 		return Collections.unmodifiableList(this.steps);
 	}
 	
-	public void adicionaAllSteps(List<ProjectStep> projectStep) {
-		this.steps.addAll(projectStep);
-		projectStep.stream().forEach(p -> p.setProject(this));
+	public void addAllSteps(List<ProjectStep> projectSteps) {
+		initSteps();
+		steps.addAll(projectSteps);
+		setProjectInProjectSteps(projectSteps);
 	}
 
-	public void removeAllSteps() {
-		this.steps.clear();
+	private void setProjectInProjectSteps(List<ProjectStep> projectSteps) {
+		projectSteps.forEach(p -> {
+			p.setProject(this);
+		});
 	}
-	
+
+	private void initSteps() {
+		if (steps == null) {
+			steps = new ArrayList<>();
+		}
+	}
+
 	@PreUpdate
 	public void preUpdate() {
 		this.update = LocalDateTime.now(ZoneId.of("Z"));
 	}
+
 }

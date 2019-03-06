@@ -10,13 +10,14 @@
     			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_project_steps" />
     		</column>
 			<column name="uid_project" type="bigint"  >
-				<constraints nullable="false" />
     		</column>
 			<column name="uid_step" type="bigint" >
 				<constraints nullable="false" />
     		</column>
 			<column name="cd_status" type="integer" >
 				<constraints nullable="false" />
+    		</column>
+    		<column name="uid_project_step_owner" type="bigint">
     		</column>
     		<column name="dt_create" type="datetime" defaultValueDate="current_timestamp">
     			<constraints nullable="false" />

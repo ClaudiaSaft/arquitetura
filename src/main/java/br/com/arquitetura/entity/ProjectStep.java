@@ -2,7 +2,10 @@ package br.com.arquitetura.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
@@ -34,6 +38,13 @@ public class ProjectStep {
 	
 	@Column(name="cd_status")
 	private StepStatusEnum status;
+	
+	@ManyToOne
+	@JoinColumn(name="uid_project_step_owner")
+	private ProjectStep projectStepOwner;
+	
+	@OneToMany(mappedBy="projectStepOwner", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<ProjectStep> subProjectSteps = new ArrayList<>();
 	
 	@Column(name="dt_create")
 	private LocalDateTime create;
@@ -83,8 +94,21 @@ public class ProjectStep {
 		this.status = status;
 	}
 
+	public ProjectStep getProjectStepOwner() {
+		return projectStepOwner;
+	}
+
+	public List<ProjectStep> getSubProjectSteps() {
+		return subProjectSteps;
+	}
+	
 	@PreUpdate
 	public void preUpdate() {
 		this.update = LocalDateTime.now(ZoneId.of("Z"));
+	}
+
+	public void addSubProjectStep(ProjectStep projectStep) {
+		subProjectSteps.add(projectStep);
+		projectStep.projectStepOwner = this;
 	}
 }
