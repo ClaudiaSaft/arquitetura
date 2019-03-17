@@ -1,5 +1,6 @@
 # Arquitetura
 
 Este projeto tem por objetivo realizar:
-- Gerenciamento de projetos de arquitetura.
-- Gerenciamento dos clientes.
+
+- Gerenciamento de clientes.
+- Gerenciamento de projetos de arquitetura e suas etapas de execução.

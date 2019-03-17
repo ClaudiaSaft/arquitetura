@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>br.com.arquitetura</groupId>
+		<artifactId>arquitetura</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>backend</artifactId>
+	<name>backend</name>
+	<packaging>war</packaging>
+	
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>br.com.arquitetura</groupId>
+			<artifactId>database</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.com.arquitetura</groupId>
+			<artifactId>account</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.com.arquitetura</groupId>
+			<artifactId>project</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>br.com.arquitetura</groupId>
+			<artifactId>security</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<goals>
+					<goal>report</goal>
+				</goals>
+			</plugin>
+		</plugins>
+	</build>
+</project>

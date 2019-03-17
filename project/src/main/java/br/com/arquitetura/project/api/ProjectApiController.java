@@ -1,0 +1,42 @@
+package br.com.arquitetura.project.api;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.arquitetura.project.data.ProjectData;
+import br.com.arquitetura.project.service.ProjectService;
+
+@RestController
+@RequestMapping(path="/project")
+public class ProjectApiController {
+
+	@Autowired
+	private ProjectService projectService;
+	
+	@GetMapping
+	public ResponseEntity<List<ProjectData>> getProjects(){
+		return ResponseEntity.ok(projectService.findAll());
+	}
+
+	@PostMapping
+	private ResponseEntity<Long> saveProject(@RequestBody @Valid ProjectData projectData) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(projectService.save(projectData));
+	}
+	
+	@PutMapping
+	private ResponseEntity<Void> updateProject(@RequestBody @Valid ProjectData projectData) {
+		projectService.update(projectData);
+		return ResponseEntity.ok().build();
+	}
+}
