@@ -1,8 +1,10 @@
-package br.com.arquitetura.security.data;
+package br.com.arquitetura.account.security.data;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -74,4 +76,11 @@ public class UserDataAuth implements UserDetails{
 		return true;
 	}
 
+	public static UserDataAuth getUserDataAuth(Principal user) {
+		if(user instanceof Authentication){
+			Authentication auth = (Authentication) user;
+			return (UserDataAuth) auth.getPrincipal();
+		}
+		return null;
+	}
 }

@@ -36,11 +36,6 @@
 			<artifactId>project</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>br.com.arquitetura</groupId>
-			<artifactId>security</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 	
 	<build>

@@ -1,4 +1,4 @@
-package br.com.arquitetura.security.config;
+package br.com.arquitetura.account.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

@@ -1,7 +1,5 @@
 package br.com.arquitetura.account.converter;
 
-import javax.validation.Valid;
-
 import br.com.arquitetura.account.data.ArchitectData;
 import br.com.arquitetura.account.data.UserData;
 import br.com.arquitetura.account.entity.Architect;
@@ -25,7 +23,7 @@ public class ArchitectConverter {
 		return new ArchitectData(architect.getUid(), userData, architect.getWhatsapp(), architect.getComercialPhone());
 	}
 
-	public static Architect convertToArchitect(Architect architect, @Valid ArchitectData architectData) {
+	public static Architect convertToArchitect(Architect architect, ArchitectData architectData) {
 		User user = UserConverter.convertToUser(architect.getUser(), architectData.getUser());
 		architect.setUser(user);
 		

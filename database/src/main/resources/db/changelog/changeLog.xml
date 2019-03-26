@@ -7,10 +7,10 @@
 
     <include file="/security/oauth_access_token.xml" relativeToChangelogFile="true"/>
     <include file="/security/oauth_refresh_token.xml" relativeToChangelogFile="true"/>
-    <include file="/user/user.xml" relativeToChangelogFile="true"/>
-    <include file="/user/address.xml" relativeToChangelogFile="true"/>
-    <include file="/user/customer.xml" relativeToChangelogFile="true"/>
-    <include file="/user/architect.xml" relativeToChangelogFile="true"/>
+    <include file="/account/user.xml" relativeToChangelogFile="true"/>
+    <include file="/account/address.xml" relativeToChangelogFile="true"/>
+    <include file="/account/customer.xml" relativeToChangelogFile="true"/>
+    <include file="/account/architect.xml" relativeToChangelogFile="true"/>
     <include file="/project/project_type.xml" relativeToChangelogFile="true"/>
     <include file="/project/project_status.xml" relativeToChangelogFile="true"/>
     <include file="/project/project.xml" relativeToChangelogFile="true"/>

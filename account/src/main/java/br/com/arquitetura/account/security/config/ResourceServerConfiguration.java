@@ -1,4 +1,4 @@
-package br.com.arquitetura.security.config;
+package br.com.arquitetura.account.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+
+import br.com.arquitetura.account.enumeration.UserRole;
 
 @Configuration
 @EnableResourceServer
@@ -22,10 +24,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 				.antMatchers("/oauth/token", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/app/version").permitAll()
 				.antMatchers(HttpMethod.POST, "/architect").permitAll()
-				//FIXME APENAS ENQUANTO NAO TEM DB
-				.antMatchers(HttpMethod.GET, "/architect/**", "/customer/**", "/project-type/**", "/step/**", "/project/**", "/user/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/customer", "/project-type", "/step", "/project").permitAll()
-				.antMatchers(HttpMethod.PATCH, "/user/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/customer").hasAnyAuthority(UserRole.ARCHITECT.name())
+				.antMatchers(HttpMethod.PUT, "/architect").hasAnyAuthority(UserRole.ARCHITECT.name())
+				.antMatchers(HttpMethod.GET, "/architect/**").hasAnyAuthority(UserRole.ARCHITECT.name())
 				.anyRequest().authenticated();
 	}
 

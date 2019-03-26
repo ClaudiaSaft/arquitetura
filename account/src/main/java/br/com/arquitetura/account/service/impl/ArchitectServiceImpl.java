@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.arquitetura.account.converter.ArchitectConverter;
 import br.com.arquitetura.account.data.ArchitectData;
@@ -46,6 +47,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public ArchitectData findByUid(Long uidArchitect) {
 		Architect architect = getArchitectById(uidArchitect);
 		return ArchitectConverter.convertToArchitectData(architect);
@@ -58,6 +60,13 @@ public class ArchitectServiceImpl implements ArchitectService {
 		} else {
 			throw new ArchitectNotFoundException();
 		}
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public ArchitectData findByUserUid(Long uidUser) {
+		Architect architect = architectRepository.findByUserUid(uidUser);
+		return ArchitectConverter.convertToArchitectData(architect);
 	}
 
 }

@@ -1,15 +1,20 @@
 package br.com.arquitetura.account.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.arquitetura.account.data.AddressData;
+import br.com.arquitetura.account.data.ArchitectData;
 import br.com.arquitetura.account.data.CustomerData;
 import br.com.arquitetura.account.data.UserData;
 import br.com.arquitetura.account.entity.Address;
+import br.com.arquitetura.account.entity.Architect;
 import br.com.arquitetura.account.entity.Customer;
 import br.com.arquitetura.account.entity.User;
 
 public class CustomerConverter {
 
-	public static Customer convertToCustomer(CustomerData customerData, UserData userData, AddressData addressData) {
+	public static Customer convertToCustomer(CustomerData customerData, UserData userData, AddressData addressData, ArchitectData architectData) {
 		Customer customer = new Customer();
 		customer.setComercialPhone(customerData.getComercialPhone());
 		customer.setPersonalPhone(customerData.getPersonalPhone());
@@ -20,6 +25,8 @@ public class CustomerConverter {
 		
 		Address address = AddressConverter.convertToAddress(addressData);
 		customer.setAddress(address);
+		
+		customer.setArchitect(new Architect(architectData.getUid()));
 		return customer;
 	}
 
@@ -46,5 +53,11 @@ public class CustomerConverter {
 	private static Address updateAddress(Customer customer, AddressData addressData) {
 		addressData.validateUpdate();
 		return AddressConverter.convertToAddress(customer.getAddress(), addressData);
+	}
+
+	public static List<CustomerData> convertToCustomerData(List<Customer> customers) {
+		List<CustomerData> customersData = new ArrayList<>();
+		customers.stream().forEach(c -> customersData.add(convertToCustomerData(c)));
+		return customersData;
 	}
 }

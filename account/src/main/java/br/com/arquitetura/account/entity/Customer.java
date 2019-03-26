@@ -30,6 +30,10 @@ public class Customer {
 	@JoinColumn(name="uid_address")
 	private Address address;
 	
+	@ManyToOne
+	@JoinColumn(name="uid_architect")
+	private Architect architect;
+
 	@Column(name="nr_whatsapp")
 	private String whatsapp;
 	
@@ -91,6 +95,14 @@ public class Customer {
 
 	public void setComercialPhone(String comercialPhone) {
 		this.comercialPhone = comercialPhone;
+	}
+
+	public Architect getArchitect() {
+		return architect;
+	}
+
+	public void setArchitect(Architect architect) {
+		this.architect = architect;
 	}
 
 	@PreUpdate

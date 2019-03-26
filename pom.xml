@@ -71,7 +71,6 @@
 	<modules>
 		<module>database</module>
 		<module>account</module>
-		<module>security</module>
 		<module>project</module>
 		<module>backend</module>
 	</modules>

@@ -5,20 +5,22 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<changeSet id="1" author="saft">
-		<createTable tableName="customer">
-			<column name="uid_customer" type="bigint" autoIncrement="true">
-    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_customers" />
+		<createTable tableName="address">
+			<column name="uid_address" type="bigint" autoIncrement="true">
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_address" />
     		</column>
-			<column name="uid_user" type="bigint" >
+			<column name="nm_address" type="varchar(255)"  >
     			<constraints nullable="false" />
     		</column>
-    		<column name="uid_address" type="bigint">
+    		<column name="nm_neighborhood" type="varchar(255)">
+    			<constraints nullable="false"/>
     		</column>
-			<column name="nr_whatsapp" type="varchar(20)"  >
+			<column name="ds_complement" type="varchar(100)"  >
     		</column>
-			<column name="nr_personal_phone" type="varchar(20)"  >
+			<column name="nr_address" type="integer(10)">
     		</column>
-			<column name="nr_comercial_phone" type="varchar(20)"  >
+    		<column name="dt_create" type="datetime" defaultValueDate="current_timestamp">
+    			<constraints nullable="false" />
     		</column>
     		<column name="dt_update" type="datetime">
     		</column>

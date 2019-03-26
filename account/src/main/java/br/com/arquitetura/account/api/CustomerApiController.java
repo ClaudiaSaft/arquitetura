@@ -1,5 +1,7 @@
 package br.com.arquitetura.account.api;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.arquitetura.account.data.CustomerData;
+import br.com.arquitetura.account.security.data.UserDataAuth;
 import br.com.arquitetura.account.service.CustomerService;
 
 @RestController
@@ -24,8 +27,8 @@ public class CustomerApiController {
 	private CustomerService customerService;
 	
 	@PostMapping
-	private ResponseEntity<Long> saveCustomer(@RequestBody @Valid CustomerData customerData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(customerService.save(customerData));
+	private ResponseEntity<Long> saveCustomer(@RequestBody @Valid CustomerData customerData, Principal userLogged) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(customerService.save(customerData, UserDataAuth.getUserDataAuth(userLogged)));
 	}
 	
 	@GetMapping(path="/{uidCustomer}")

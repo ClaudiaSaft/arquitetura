@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<changeSet id="1" author="saft">
-		<createTable tableName="user_roles">
+		<createTable tableName="user_role">
 			<column name="uid_user_role" type="bigint">
-    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles" />
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role" />
     		</column>
 			<column name="cd_user_role" type="varchar(50)"  >
 				<constraints nullable="false" />
@@ -16,11 +16,11 @@
 	</changeSet>
 	
 	<changeSet id="2" author="saft">
-		<insert tableName="user_roles">
+		<insert tableName="user_role">
 			<column name="uid_user_role">0</column>
 			<column name="cd_user_role">ARCHITECT</column>
 		</insert>
-		<insert tableName="user_roles">
+		<insert tableName="user_role">
 			<column name="uid_user_role">1</column>
 			<column name="cd_user_role">CUSTOMER</column>
 		</insert>

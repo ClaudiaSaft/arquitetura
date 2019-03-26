@@ -1,5 +1,8 @@
 package br.com.arquitetura.account.api;
 
+import java.security.Principal;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.arquitetura.account.data.ArchitectData;
+import br.com.arquitetura.account.data.CustomerData;
+import br.com.arquitetura.account.security.data.UserDataAuth;
 import br.com.arquitetura.account.service.ArchitectService;
+import br.com.arquitetura.account.service.CustomerService;
 
 @RestController
 @RequestMapping(path="/architect")
@@ -22,6 +28,8 @@ public class ArchitectApiController {
 
 	@Autowired
 	private ArchitectService architectService;
+	@Autowired
+	private CustomerService customerService;
 	
 	@PostMapping
 	private ResponseEntity<Long> saveArchitect(@RequestBody @Valid ArchitectData architectData) {
@@ -39,4 +47,8 @@ public class ArchitectApiController {
 		return ResponseEntity.ok().build();
 	}
 	
+	@GetMapping(path="/customers")
+	public ResponseEntity<List<CustomerData>> getArchitect(Principal userLogged){
+		return ResponseEntity.ok(customerService.getCustomersByUidUserArchitect(UserDataAuth.getUserDataAuth(userLogged).getUid()));
+	}
 }

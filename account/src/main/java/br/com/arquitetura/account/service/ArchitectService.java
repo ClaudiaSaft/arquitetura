@@ -10,4 +10,6 @@ public interface ArchitectService {
 
 	void update(ArchitectData architectData);
 
+	ArchitectData findByUserUid(Long uidUser);
+
 }

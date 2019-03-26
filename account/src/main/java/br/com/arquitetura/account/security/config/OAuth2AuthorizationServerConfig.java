@@ -1,4 +1,6 @@
-package br.com.arquitetura.security.config;
+package br.com.arquitetura.account.security.config;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,8 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
@@ -23,10 +27,16 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 	private static final String SCOPE_READ = "read";
 	private static final String SCOPE_WRITE = "write";
 	
-	private AuthenticationManager authenticationManager;
-	
+	@Autowired
+	private DataSource dataSource;
+
 	@Autowired 
 	private JwtAccessTokenConverter jwtAccessTokenConverter;
+	
+	@Autowired 
+	private TokenStore tokenStore;
+
+	private AuthenticationManager authenticationManager;
 
 	public OAuth2AuthorizationServerConfig(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 		this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
@@ -35,6 +45,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 	@Bean
 	public JwtAccessTokenConverter converter(){
 		return new JwtAccessTokenConverter();
+	}
+	
+	@Bean
+	public TokenStore tokenStore(){
+		return new JdbcTokenStore(this.dataSource);
 	}
 
 	@Override
@@ -48,6 +63,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.accessTokenConverter(jwtAccessTokenConverter).authenticationManager(authenticationManager);
+		endpoints.tokenStore(tokenStore)
+				.accessTokenConverter(jwtAccessTokenConverter)
+				.authenticationManager(authenticationManager);
 	}
 }

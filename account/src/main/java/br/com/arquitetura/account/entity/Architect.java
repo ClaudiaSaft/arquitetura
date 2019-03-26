@@ -14,7 +14,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="architects")
+@Table(name="architect")
 public class Architect {
 
 	@Id

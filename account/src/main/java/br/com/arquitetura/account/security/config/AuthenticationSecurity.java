@@ -1,4 +1,4 @@
-package br.com.arquitetura.security.config;
+package br.com.arquitetura.account.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,14 +8,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.com.arquitetura.security.service.UserAuthService;
+import br.com.arquitetura.account.service.UserService;
 
 @Order(Ordered.HIGHEST_PRECEDENCE + 10)
 @Configuration
 public class AuthenticationSecurity extends GlobalAuthenticationConfigurerAdapter {
 
 	@Autowired
-	public UserAuthService usuarioService;
+	public UserService usuarioService;
 
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {

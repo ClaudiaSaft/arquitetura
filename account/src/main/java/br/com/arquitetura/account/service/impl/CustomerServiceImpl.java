@@ -1,20 +1,23 @@
 package br.com.arquitetura.account.service.impl;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.arquitetura.account.converter.CustomerConverter;
 import br.com.arquitetura.account.data.AddressData;
+import br.com.arquitetura.account.data.ArchitectData;
 import br.com.arquitetura.account.data.CustomerData;
 import br.com.arquitetura.account.data.UserData;
 import br.com.arquitetura.account.entity.Customer;
 import br.com.arquitetura.account.exception.CustomerNotFoundException;
 import br.com.arquitetura.account.repository.CustomerRepository;
+import br.com.arquitetura.account.security.data.UserDataAuth;
 import br.com.arquitetura.account.service.AddressService;
+import br.com.arquitetura.account.service.ArchitectService;
 import br.com.arquitetura.account.service.CustomerService;
 import br.com.arquitetura.account.service.UserService;
 
@@ -27,23 +30,30 @@ public class CustomerServiceImpl implements CustomerService {
 	private UserService userService;
 	@Autowired
 	private AddressService addressService;
+	@Autowired
+	private ArchitectService architectService;
 	
 	
 	@Override
-	public Long save(@Valid CustomerData customerData) {
+	@Transactional
+	public Long save(CustomerData customerData, UserDataAuth userDataAuth) {
 		customerData.validateCreate();
 		
 		UserData userSaved = userService.save(customerData.getUser());
-		AddressData addressSaved = saveAddressToDatabase(customerData);
 		
-		Customer customer = CustomerConverter.convertToCustomer(customerData, userSaved, addressSaved);
+		Integer.parseInt("123ff");
+		
+		AddressData addressSaved = saveAddressToDatabase(customerData);
+		ArchitectData architectData = architectService.findByUserUid(userDataAuth.getUid());
+		
+		Customer customer = CustomerConverter.convertToCustomer(customerData, userSaved, addressSaved, architectData);
 		
 		Customer customerSaved = customerRepository.save(customer);
 		return customerSaved.getUid();
 	}
 
 	@Override
-	public void update(@Valid CustomerData customerData) {
+	public void update(CustomerData customerData) {
 		customerData.validateUpdate();
 		
 		Customer customerDataBase = getCustomerById(customerData.getUid());
@@ -64,6 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public CustomerData findByUid(Long uidCustomer) {
 		Customer customer = getCustomerById(uidCustomer);
 		return CustomerConverter.convertToCustomerData(customer);
@@ -76,6 +87,13 @@ public class CustomerServiceImpl implements CustomerService {
 		} else {
 			throw new CustomerNotFoundException();
 		}
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<CustomerData> getCustomersByUidUserArchitect(Long uidUserArchitect) {
+		List<Customer> customers = customerRepository.getCustomersByUidUserArchitect(uidUserArchitect);
+		return CustomerConverter.convertToCustomerData(customers);
 	}
 
 }
