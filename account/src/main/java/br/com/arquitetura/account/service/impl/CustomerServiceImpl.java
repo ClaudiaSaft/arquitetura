@@ -33,7 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private ArchitectService architectService;
 	
-	
 	@Override
 	@Transactional
 	public Long save(CustomerData customerData, UserDataAuth userDataAuth) {
@@ -41,14 +40,13 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		UserData userSaved = userService.save(customerData.getUser());
 		
-		Integer.parseInt("123ff");
-		
 		AddressData addressSaved = saveAddressToDatabase(customerData);
 		ArchitectData architectData = architectService.findByUserUid(userDataAuth.getUid());
 		
 		Customer customer = CustomerConverter.convertToCustomer(customerData, userSaved, addressSaved, architectData);
 		
 		Customer customerSaved = customerRepository.save(customer);
+		
 		return customerSaved.getUid();
 	}
 

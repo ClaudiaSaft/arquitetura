@@ -7,6 +7,8 @@
 
     <include file="/security/oauth_access_token.xml" relativeToChangelogFile="true"/>
     <include file="/security/oauth_refresh_token.xml" relativeToChangelogFile="true"/>
+    <include file="/account/parameter_system.xml" relativeToChangelogFile="true"/>
+    <include file="/account/parameter_system_insert.xml" relativeToChangelogFile="true"/>
     <include file="/account/user.xml" relativeToChangelogFile="true"/>
     <include file="/account/address.xml" relativeToChangelogFile="true"/>
     <include file="/account/customer.xml" relativeToChangelogFile="true"/>

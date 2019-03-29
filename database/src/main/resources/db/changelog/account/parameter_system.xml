@@ -1,0 +1,17 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	<changeSet id="1" author="saft">
+		<createTable tableName="parameter_system">
+			<column name="cd_parameter" type="varchar(50)">
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_parameter_system" />
+    		</column>
+			<column name="vl_parameter" type="varchar(255)"  >
+    			<constraints nullable="false" />
+    		</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>
