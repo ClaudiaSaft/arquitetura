@@ -3,6 +3,7 @@ package br.com.arquitetura.account.service;
 import java.util.List;
 
 import br.com.arquitetura.account.data.CustomerData;
+import br.com.arquitetura.account.data.CustomerReportData;
 import br.com.arquitetura.account.security.data.UserDataAuth;
 
 public interface CustomerService {
@@ -15,4 +16,5 @@ public interface CustomerService {
 
 	List<CustomerData> getCustomersByUidUserArchitect(Long uidUserArchitect);
 
+	List<CustomerReportData> getCustomersReportDataByUidUserArchitect(Long uidUserArchitect);
 }

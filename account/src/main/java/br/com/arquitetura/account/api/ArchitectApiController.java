@@ -1,5 +1,6 @@
 package br.com.arquitetura.account.api;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import br.com.arquitetura.account.data.CustomerData;
 import br.com.arquitetura.account.security.data.UserDataAuth;
 import br.com.arquitetura.account.service.ArchitectService;
 import br.com.arquitetura.account.service.CustomerService;
+import net.sf.jasperreports.engine.JRException;
 
 @RestController
 @RequestMapping(path="/architect")
@@ -48,7 +50,13 @@ public class ArchitectApiController {
 	}
 	
 	@GetMapping(path="/customers")
-	public ResponseEntity<List<CustomerData>> getArchitect(Principal userLogged){
+	public ResponseEntity<List<CustomerData>> getCustomersByArchitect(Principal userLogged){
 		return ResponseEntity.ok(customerService.getCustomersByUidUserArchitect(UserDataAuth.getUserDataAuth(userLogged).getUid()));
+	}
+
+	@GetMapping(path="/customers/send-report")
+	public ResponseEntity<List<CustomerData>> getReportCustomersByArchitect(Principal userLogged) throws IOException, JRException{
+		architectService.generateReportCustomersByArchitect(UserDataAuth.getUserDataAuth(userLogged).getUid());
+		return ResponseEntity.ok().build();
 	}
 }

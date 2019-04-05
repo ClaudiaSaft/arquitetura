@@ -11,6 +11,7 @@ import br.com.arquitetura.account.converter.CustomerConverter;
 import br.com.arquitetura.account.data.AddressData;
 import br.com.arquitetura.account.data.ArchitectData;
 import br.com.arquitetura.account.data.CustomerData;
+import br.com.arquitetura.account.data.CustomerReportData;
 import br.com.arquitetura.account.data.UserData;
 import br.com.arquitetura.account.entity.Customer;
 import br.com.arquitetura.account.exception.CustomerNotFoundException;
@@ -94,4 +95,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return CustomerConverter.convertToCustomerData(customers);
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<CustomerReportData> getCustomersReportDataByUidUserArchitect(Long uidUserArchitect) {
+		List<Customer> customers = customerRepository.getCustomersByUidUserArchitect(uidUserArchitect);
+		return CustomerConverter.convertToCustomerReportData(customers);
+	}
 }

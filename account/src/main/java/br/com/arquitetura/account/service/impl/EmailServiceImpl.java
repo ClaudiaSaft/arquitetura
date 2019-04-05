@@ -18,8 +18,8 @@ import br.com.arquitetura.account.service.ParameterService;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-	@Autowired
-	private JavaMailSender javaMailSender;
+//	@Autowired
+//	private JavaMailSender javaMailSender;
 	
 	@Autowired
 	private ParameterService parameterService;
@@ -31,35 +31,35 @@ public class EmailServiceImpl implements EmailService {
 	public void sendEmail(Email email) {
 		System.out.println(environment.getActiveProfiles()[0]);
 		
-		this.javaMailSender.send(new MimeMessagePreparator() {
-			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				MimeMessageHelper help = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-
-				help.setTo(email.getDestinatario());
-				help.setFrom(getEmailRemetente(email), getNomeRementente(email));
-				help.setSubject(email.getAssunto());
-				help.setText(email.getCorpo(), email.isCorpoHtml());
-				
-				if(!email.getAnexos().isEmpty()){
-					for (EmailAnexo emailAnexo : email.getAnexos()) {
-						help.addAttachment(emailAnexo.getNomeAnexo(), emailAnexo.getAnexoResource());
-					}
-				}
-			}
-
-			private String getNomeRementente(Email email) {
-				return getParameterFrom(AccountConstants.REMETENTE_NAME);
-			}
-
-			private String getEmailRemetente(Email email) {
-				return getParameterFrom(AccountConstants.REMETENTE_EMAIL);
-			}
-			
-			private String getParameterFrom(String parameterConstant){
-				return parameterService.getString(parameterConstant);
-			}
-		});
+//		this.javaMailSender.send(new MimeMessagePreparator() {
+//			@Override
+//			public void prepare(MimeMessage mimeMessage) throws Exception {
+//				MimeMessageHelper help = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+//
+//				help.setTo(email.getDestinatario());
+//				help.setFrom(getEmailRemetente(email), getNomeRementente(email));
+//				help.setSubject(email.getAssunto());
+//				help.setText(email.getCorpo(), email.isCorpoHtml());
+//				
+//				if(!email.getAnexos().isEmpty()){
+//					for (EmailAnexo emailAnexo : email.getAnexos()) {
+//						help.addAttachment(emailAnexo.getNomeAnexo(), emailAnexo.getAnexoResource());
+//					}
+//				}
+//			}
+//
+//			private String getNomeRementente(Email email) {
+//				return getParameterFrom(AccountConstants.REMETENTE_NAME);
+//			}
+//
+//			private String getEmailRemetente(Email email) {
+//				return getParameterFrom(AccountConstants.REMETENTE_EMAIL);
+//			}
+//			
+//			private String getParameterFrom(String parameterConstant){
+//				return parameterService.getString(parameterConstant);
+//			}
+//		});
 	}
 
 }

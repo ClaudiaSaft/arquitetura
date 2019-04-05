@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.arquitetura.account.data.AddressData;
 import br.com.arquitetura.account.data.ArchitectData;
 import br.com.arquitetura.account.data.CustomerData;
+import br.com.arquitetura.account.data.CustomerReportData;
 import br.com.arquitetura.account.data.UserData;
 import br.com.arquitetura.account.entity.Address;
 import br.com.arquitetura.account.entity.Architect;
@@ -59,5 +60,17 @@ public class CustomerConverter {
 		List<CustomerData> customersData = new ArrayList<>();
 		customers.stream().forEach(c -> customersData.add(convertToCustomerData(c)));
 		return customersData;
+	}
+
+	public static List<CustomerReportData> convertToCustomerReportData(List<Customer> customers) {
+		List<CustomerReportData> customersReportData = new ArrayList<>();
+		customers.stream().forEach(c -> customersReportData.add(convertToCustomerReportData(c)));
+		return customersReportData;
+	}
+	
+	public static CustomerReportData convertToCustomerReportData(Customer customer) {
+		UserData userData = UserConverter.convertToUserData(customer.getUser());
+		
+		return new CustomerReportData(userData, customer.getWhatsapp());
 	}
 }
