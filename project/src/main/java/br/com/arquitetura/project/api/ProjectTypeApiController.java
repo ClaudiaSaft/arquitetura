@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,14 +29,8 @@ public class ProjectTypeApiController {
 	}
 	
 	@PostMapping
-	private ResponseEntity<Long> saveProjectType(@RequestBody @Valid ProjectTypeData projectTypeData) {
+	public ResponseEntity<Long> saveProjectType(@RequestBody @Valid ProjectTypeData projectTypeData){
 		return ResponseEntity.status(HttpStatus.CREATED).body(projectTypeService.save(projectTypeData));
-	}
-	
-	@PutMapping()
-	public ResponseEntity<Void> updateProjectType(@RequestBody @Valid ProjectTypeData projectTypeData){
-		projectTypeService.update(projectTypeData);
-		return ResponseEntity.ok().build();
 	}
 	
 }

@@ -1,9 +1,10 @@
 package br.com.arquitetura.project.data;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.arquitetura.account.data.ValidationFiedsData;
+import br.com.arquitetura.project.enumeration.ProjectStatusEnum;
 import br.com.arquitetura.project.exception.ProjectFieldRequiredException;
 
 public class ProjectData extends ValidationFiedsData{
@@ -14,66 +15,127 @@ public class ProjectData extends ValidationFiedsData{
 	private Long uidCustomer;
 	private Long uidArchitect;
 	private Long uidProjectType;
-	private List<ProjectStepData> projectSteps;
+	private Long uidProjectSubType;
+	private boolean template;
+	private ProjectStatusEnum status;
+	private List<ProjectStepData> projectStepsData;
 	
-	public Long getUid() {
-		return uid;
+	public ProjectData() {
+	}
+	
+	private ProjectData(Long uid, String name, String description, Long uidCustomer, Long uidArchitect,
+			Long uidProjectType, Long uidProjectSubType, ProjectStatusEnum status, boolean template,
+			List<ProjectStepData> projectStepsData) {
+		this.uid = uid;
+		this.status = status;
+		this.name = name;
+		this.description = description;
+		this.uidCustomer = uidCustomer;
+		this.uidArchitect = uidArchitect;
+		this.uidProjectType = uidProjectType;
+		this.uidProjectSubType = uidProjectSubType;
+		this.template = template;
+		this.projectStepsData = projectStepsData;
 	}
 
-	public void setUid(Long uid) {
-		this.uid = uid;
+	public Long getUid() {
+		return uid;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Long getUidCustomer() {
 		return uidCustomer;
 	}
 
-	public void setUidCustomer(Long uidCustomer) {
-		this.uidCustomer = uidCustomer;
-	}
-
 	public Long getUidArchitect() {
 		return uidArchitect;
-	}
-
-	public void setUidArchitect(Long uidArchitect) {
-		this.uidArchitect = uidArchitect;
 	}
 
 	public Long getUidProjectType() {
 		return uidProjectType;
 	}
-
-	public void setUidProjectType(Long uidProjectType) {
-		this.uidProjectType = uidProjectType;
+	
+	public Long getUidProjectSubType() {
+		return uidProjectSubType;
 	}
 	
-	public List<ProjectStepData> getProjectSteps() {
-		if (projectSteps == null) {
-			return new ArrayList<>();
-		}
-		return projectSteps;
+	public ProjectStatusEnum getStatus() {
+		return status;
+	}
+	
+	public boolean isTemplate() {
+		return template;
 	}
 
-	public void setProjectSteps(List<ProjectStepData> projectSteps) {
-		this.projectSteps = projectSteps;
+	public List<ProjectStepData> getProjectStepsData() {
+		return Collections.unmodifiableList(projectStepsData);
 	}
+	
+	public static class Builder {
+		private Long uid;
+		private String name;
+		private String description;
+		private Long uidCustomer;
+		private Long uidArchitect;
+		private Long uidProjectType;
+		private Long uidProjectSubType;
+		private boolean template;
+		private ProjectStatusEnum status;
+		private List<ProjectStepData> projectStepsData;
+		
+		public Builder(String name, Long uidProjectType, Long uidProjectSubType) {
+			this.name = name;
+			this.uidProjectType = uidProjectType;
+			this.uidProjectSubType = uidProjectSubType;
+		}
+
+		public Builder description(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder uidCustomer(Long uidCustomer) {
+			this.uidCustomer = uidCustomer;
+			return this;
+		}
+		
+		public Builder uidArchitect(Long uidArchitect) {
+			this.uidArchitect = uidArchitect;
+			return this;
+		}
+
+		public Builder template(boolean template) {
+			this.template = template;
+			return this;
+		}
+		
+		public Builder status(ProjectStatusEnum status) {
+			this.status = status;
+			return this;
+		}
+		
+		public Builder uid(Long uid) {
+			this.uid = uid;
+			return this;
+		}
+		
+		public Builder projectStepsData(List<ProjectStepData> projectStepsData) {
+			this.projectStepsData = projectStepsData;
+			return this;
+		}
+
+		public ProjectData build() {
+			return new ProjectData(uid, name, description, uidCustomer, uidArchitect, uidProjectType, uidProjectSubType, status, template, projectStepsData);
+		}
+	}
+	
 
 	@Override
 	protected void validateRequiredFieldsCreate() {
@@ -84,14 +146,11 @@ public class ProjectData extends ValidationFiedsData{
 		if(name == null) {
 			throw new ProjectFieldRequiredException("name");
 		}
-		if(uidArchitect == null) {
-			throw new ProjectFieldRequiredException("uidArchitect");
-		}
-		if(uidCustomer == null) {
-			throw new ProjectFieldRequiredException("uidCustomer");
-		}
 		if(uidProjectType == null) {
 			throw new ProjectFieldRequiredException("uidProjectType");
+		}
+		if(uidProjectSubType == null) {
+			throw new ProjectFieldRequiredException("uidProjectSubType");
 		}
 	}
 	

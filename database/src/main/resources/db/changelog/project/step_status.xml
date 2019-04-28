@@ -17,22 +17,4 @@
     		</column>
 		</createTable>
 	</changeSet>
-	
-	<changeSet id="2" author="saft">
-		<insert tableName="step_status">
-			<column name="uid_step_status">0</column>
-			<column name="cd_step_status">AGUARDANDO_INICIO</column>
-			<column name="nm_step_status">Aguardando Inicio</column>
-		</insert>
-		<insert tableName="step_status">
-			<column name="uid_step_status">1</column>
-			<column name="cd_step_status">EM_ANDAMENTO</column>
-			<column name="nm_step_status">Em Andamento</column>
-		</insert>
-		<insert tableName="step_status">
-			<column name="uid_step_status">2</column>
-			<column name="cd_step_status">FINALIZADO</column>
-			<column name="nm_step_status">Finalizado</column>
-		</insert>
-	</changeSet>
 </databaseChangeLog>

@@ -4,6 +4,7 @@ public enum StepStatusEnum {
 
 	AGUARDANDO_INICIO,
 	EM_ANDAMENTO,
+	PARADO,
 	FINALIZADO;
 	
 }

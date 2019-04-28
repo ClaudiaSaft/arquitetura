@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.arquitetura.project.data.ProjectData;
-import br.com.arquitetura.account.entity.Architect;
-import br.com.arquitetura.account.entity.Customer;
+import br.com.arquitetura.project.data.ProjectStepData;
 import br.com.arquitetura.project.entity.Project;
-import br.com.arquitetura.project.entity.ProjectType;
 
 public class ProjectConverter {
+	
+	private ProjectConverter() {
+		
+	}
 
 	public static List<ProjectData> convertToProjectData(List<Project> projects) {
 		List<ProjectData> projectsData = new ArrayList<>();
@@ -18,24 +20,27 @@ public class ProjectConverter {
 	}
 
 	private static ProjectData convertToProjectData(Project project) {
-		ProjectData projectData = new ProjectData();
-		projectData.setUid(project.getUid());
-		projectData.setName(project.getName());
-		projectData.setDescription(project.getDescription());
-		projectData.setUidArchitect(project.getArchitect().getUid());
-		projectData.setUidCustomer(project.getCustomer().getUid());
-		projectData.setUidProjectType(project.getType().getUid());
-		projectData.setProjectSteps(ProjectStepConverter.convertToProjectStepData(project.getSteps()));
-		return projectData;
+		List<ProjectStepData> projectStepsData = ProjectStepConverter.convertToProjectStepData(project.getProjectSteps());
+		
+		return new ProjectData.Builder(project.getName(), project.getType().getUid(), project.getSubType().getUid())
+				.uid(project.getUid())
+				.description(project.getDescription())
+				.uidArchitect(project.getArchitect().getUid())
+				.uidCustomer(project.getCustomer().getUid())
+				.projectStepsData(projectStepsData)
+				.status(project.getStatus())
+				.build();
 	}
 
 	public static Project convertToProject(ProjectData projectData) {
-		Project project = new Project(projectData.getName(), projectData.getDescription(), 
-				new Customer(projectData.getUidCustomer()), new Architect(projectData.getUidArchitect()), 
-				new ProjectType(projectData.getUidProjectType()));
+		Project project = new Project.Builder(projectData.getName(), projectData.getUidProjectType(), projectData.getUidProjectSubType())
+				.description(projectData.getDescription())
+				.uidArchitect(projectData.getUidArchitect())
+				.uidCustomer(projectData.getUidCustomer())
+				.build();
 		
-		project.addAllSteps(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
-		
+		project.addAllStepProjects(ProjectStepConverter.convertToProjectStep(projectData.getProjectStepsData()));
+
 		return project;
 	}
 

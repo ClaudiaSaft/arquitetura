@@ -7,6 +7,10 @@ import br.com.arquitetura.project.data.StepData;
 import br.com.arquitetura.project.entity.Step;
 
 public class StepConverter {
+	
+	private StepConverter() {
+		
+	}
 
 	public static List<StepData> convertToStepData(List<Step> steps) {
 		List<StepData> stepsData = new ArrayList<>();
@@ -14,22 +18,26 @@ public class StepConverter {
 		return stepsData;
 	}
 	
-	private static StepData convertToStepData(Step step) {
-		return new StepData(step.getUid(), step.getName(), step.getDescription());
+	public static StepData convertToStepData(Step step) {
+		StepData stepData = new StepData(step.getUid(), step.getDescription(), step.getStatus());
+		if(step.getSubSteps() != null) {
+			step.getSubSteps().stream().forEach(s -> stepData.addSubProjectStep(convertToStepData(s)));
+		}
+		return stepData;
 	}
 
 	public static Step convertToStep(StepData stepData) {
-		return convertToStep(new Step(), stepData);
+		Step step = new Step(stepData.getDescription());
+		if(stepData.getSubStepsData() != null) {
+			stepData.getSubStepsData().stream().forEach(s -> step.addSubProjectStep(convertToStep(s)));
+		}
+		return step;
 	}
 
 	public static Step convertToStep(Step stepDataBase, StepData stepData) {
-		stepDataBase.setName(stepData.getName());
 		stepDataBase.setDescription(stepData.getDescription());
+		stepDataBase.setStatus(stepData.getStatus());
 		return stepDataBase;
-	}
-
-	public static Step convertToStep(Long uidStep) {
-		return new Step(uidStep);
 	}
 
 }

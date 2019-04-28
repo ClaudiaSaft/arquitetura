@@ -5,14 +5,14 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<changeSet id="1" author="saft">
-		<createTable tableName="project_types">
+		<createTable tableName="project_type">
 			<column name="uid_project_type" type="bigint" autoIncrement="true">
-    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_project_types" />
+    			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_project_type" />
     		</column>
-			<column name="nm_project_type" type="varchar(100)"  >
+			<column name="nm_project_type" type="varchar(100)">
 				<constraints nullable="false" />
     		</column>
-			<column name="ds_project_type" type="varchar(2000)" >
+			<column name="uid_project_type_owner" type="bigint">
     		</column>
     		<column name="dt_create" type="datetime" defaultValueDate="current_timestamp">
     			<constraints nullable="false" />

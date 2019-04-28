@@ -1,63 +1,46 @@
 package br.com.arquitetura.project.data;
 
-import br.com.arquitetura.account.data.ValidationFiedsData;
-import br.com.arquitetura.project.exception.ProjectTypeFieldRequiredException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class ProjectTypeData extends ValidationFiedsData{
+public class ProjectTypeData {
 
 	private Long uid;
 	private String name;
-	private String description;
+	private Long uidProjectTypeOwner;
+	private List<ProjectTypeData> projectSubTypes;
 	
 	public ProjectTypeData() {
 	}
 	
-	public ProjectTypeData(Long uid, String name, String description) {
+	public ProjectTypeData(Long uid, String name) {
 		this.uid = uid;
 		this.name = name;
-		this.description = description;
 	}
 	
 	public Long getUid() {
 		return uid;
 	}
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public Long getUidProjectTypeOwner() {
+		return uidProjectTypeOwner;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@Override
-	protected void validateRequiredFieldsUpdate() {
-		validateRequiredFields();
-	}
-
-	private void validateRequiredFields() {
-		if(name == null) {
-			throw new ProjectTypeFieldRequiredException("name");
+	public List<ProjectTypeData> getProjectSubTypes() {
+		if(projectSubTypes == null) {
+			return new ArrayList<>();
 		}
+		return Collections.unmodifiableList(projectSubTypes);
 	}
-
-	@Override
-	protected void validateRequiredUid() {
-		if(uid == null) {
-			throw new ProjectTypeFieldRequiredException("uid");
+	
+	public void addProjectSubType(ProjectTypeData projectTypeData) {
+		if(projectSubTypes == null) {
+			projectSubTypes = new ArrayList<>();
 		}
-	}
-
-	@Override
-	protected void validateRequiredFieldsCreate() {
-		validateRequiredFields();
+		projectSubTypes.add(projectTypeData);
+		projectTypeData.uidProjectTypeOwner = this.getUid();
 	}
 	
 }

@@ -7,26 +7,35 @@ import br.com.arquitetura.project.data.ProjectTypeData;
 import br.com.arquitetura.project.entity.ProjectType;
 
 public class ProjectTypeConverter {
+	
+	private ProjectTypeConverter() {
+		
+	}
 
 	public static List<ProjectTypeData> convertToProjectTypeData(List<ProjectType> projectTypes) {
 		List<ProjectTypeData> projectTypesData = new ArrayList<>();
-		projectTypes.forEach(p -> projectTypesData.add(convertToProjectTypeData(p)));
+		projectTypes.forEach(p -> {
+			if(p.getProjectTypeOwner() == null) {
+				projectTypesData.add(convertToProjectTypeData(p));
+			}
+		});
 		return projectTypesData;
 	}
 	
 	private static ProjectTypeData convertToProjectTypeData(ProjectType projectType) {
-		return new ProjectTypeData(projectType.getUid(), projectType.getName(), projectType.getDescription());
+		ProjectTypeData projectTypeData = new ProjectTypeData(projectType.getUid(), projectType.getName());
+		if(projectType.getProjectSubTypes() != null) {
+			projectType.getProjectSubTypes().stream().forEach(s -> projectTypeData.addProjectSubType(convertToProjectTypeData(s)));
+		}
+		return projectTypeData;
 	}
 
 	public static ProjectType convertToProjectType(ProjectTypeData projectTypeData) {
-		return convertToProjectType(new ProjectType(), projectTypeData);
-	}
-
-	public static ProjectType convertToProjectType(ProjectType projectTypeDataBase, ProjectTypeData projectTypeData) {
-		projectTypeDataBase.setName(projectTypeData.getName());
-		projectTypeDataBase.setDescription(projectTypeData.getDescription());
-		
-		return projectTypeDataBase;
+		ProjectType projectType = new ProjectType(projectTypeData.getUid(), projectTypeData.getName());
+		if(projectTypeData.getProjectSubTypes() != null) {
+			projectTypeData.getProjectSubTypes().stream().forEach(p -> projectType.addProjectSubType(convertToProjectType(p)));
+		}
+		return projectType;
 	}
 
 }

@@ -1,40 +1,58 @@
 package br.com.arquitetura.project.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import br.com.arquitetura.account.data.ValidationFiedsData;
+import br.com.arquitetura.project.enumeration.StepStatusEnum;
 import br.com.arquitetura.project.exception.StepFieldRequiredException;
 
 public class StepData extends ValidationFiedsData{
 
 	private Long uid;
-	private String name;
 	private String description;
+	private StepStatusEnum status;
+	private Long uidStepOwner;
+	private List<StepData> subStepsData;
 	
 	public StepData() {
 	}
 	
-	public StepData(Long uid, String name, String description) {
+	public StepData(Long uid, String description, StepStatusEnum status) {
 		this.uid = uid;
-		this.name = name;
 		this.description = description;
+		this.status = status;
 	}
 	
 	public Long getUid() {
 		return uid;
 	}
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	
+	public StepStatusEnum getStatus() {
+		return status;
+	}
+	
+	public Long getUidStepOwner() {
+		return uidStepOwner;
+	}	
+
+	public List<StepData> getSubStepsData() {
+		if(subStepsData == null) {
+			return new ArrayList<>();
+		}
+		return Collections.unmodifiableList(subStepsData);
+	}
+	
+	public void addSubProjectStep(StepData stepData) {
+		if(subStepsData == null) {
+			subStepsData = new ArrayList<>();
+		}
+		subStepsData.add(stepData);
+		stepData.uidStepOwner = this.getUid();
 	}
 
 	@Override
@@ -43,8 +61,8 @@ public class StepData extends ValidationFiedsData{
 	}
 
 	private void validateRequiredFields() {
-		if(name == null) {
-			throw new StepFieldRequiredException("name");
+		if(description == null) {
+			throw new StepFieldRequiredException("description");
 		}
 	}
 

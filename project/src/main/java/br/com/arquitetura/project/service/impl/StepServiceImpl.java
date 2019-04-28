@@ -1,6 +1,5 @@
 package br.com.arquitetura.project.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +18,6 @@ public class StepServiceImpl implements StepService {
 	@Autowired
 	private StepRepository stepRepository;
 	
-	@Override
-	public List<StepData> findAll() {
-		List<Step> steps = stepRepository.findAll();
-		return StepConverter.convertToStepData(steps);
-	}
-	
-	@Override
-	public Long save(StepData stepData) {
-		stepData.validateCreate();
-		Step step = StepConverter.convertToStep(stepData);
-		Step stepSaved = stepRepository.save(step);
-		return stepSaved.getUid();
-	}
-
 	@Override
 	public void update(StepData stepData) {
 		stepData.validateUpdate();

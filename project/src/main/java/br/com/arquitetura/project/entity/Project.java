@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ import br.com.arquitetura.account.entity.Customer;
 import br.com.arquitetura.project.enumeration.ProjectStatusEnum;
 
 @Entity
-@Table(name="projects")
+@Table(name="project")
 public class Project {
 
 	@Id
@@ -37,6 +39,7 @@ public class Project {
 	@Column(name="ds_project")
 	private String description;
 	
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="cd_status")
 	private ProjectStatusEnum status;
 
@@ -51,6 +54,13 @@ public class Project {
 	@ManyToOne
 	@JoinColumn(name="uid_project_type")
 	private ProjectType type;
+
+	@ManyToOne
+	@JoinColumn(name="uid_project_subtype")
+	private ProjectType subType;
+	
+	@Column(name="ind_template")
+	private boolean template;
 	
 	@Column(name="dt_create")
 	private LocalDateTime create;
@@ -59,22 +69,58 @@ public class Project {
 	private LocalDateTime update;
 	
 	@OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<ProjectStep> steps;
+	private List<ProjectStep> projectSteps;
 	
 	
 	public Project() {
-		this.steps = new ArrayList<>();
-		this.status = ProjectStatusEnum.AGUARDANDO_INICIO;
-		this.create = LocalDateTime.now(ZoneId.of("Z"));
 	}
 	
-	public Project(String name, String description, Customer customer, Architect architect, ProjectType type) {
-		this();
+	public static class Builder {
+		private String name;
+		private String description;
+		private Long uidCustomer;
+		private Long uidArchitect;
+		private Long uidProjectType;
+		private Long uidProjectSubType;
+		
+		public Builder(String name, Long uidProjectType, Long uidProjectSubType) {
+			this.name = name;
+			this.uidProjectType = uidProjectType;
+			this.uidProjectSubType = uidProjectSubType;
+		}
+
+		public Builder description(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder uidCustomer(Long uidCustomer) {
+			this.uidCustomer = uidCustomer;
+			return this;
+		}
+		
+		public Builder uidArchitect(Long uidArchitect) {
+			this.uidArchitect = uidArchitect;
+			return this;
+		}
+
+		public Project build() {
+			return new Project(name, description, new Customer(uidCustomer), new Architect(uidArchitect), 
+					new ProjectType(uidProjectType), new ProjectType(uidProjectSubType));
+		}
+	}
+	
+	private Project(String name, String description, Customer customer, 
+			Architect architect, ProjectType type, ProjectType subType) {
+		this.projectSteps = new ArrayList<>();
+		this.status = ProjectStatusEnum.AGUARDANDO_INICIO;
+		this.create = LocalDateTime.now(ZoneId.of("Z"));
 		this.name = name;
 		this.description = description;
 		this.customer = customer;
 		this.architect = architect;
 		this.type = type;
+		this.subType = subType;
 	}
 
 	public Project(Long uidProject) {
@@ -116,26 +162,28 @@ public class Project {
 	public ProjectType getType() {
 		return type;
 	}
+	
+	public ProjectType getSubType() {
+		return subType;
+	}
 
-	public List<ProjectStep> getSteps() {
-		return Collections.unmodifiableList(this.steps);
+	public List<ProjectStep> getProjectSteps() {
+		return Collections.unmodifiableList(this.projectSteps);
 	}
 	
-	public void addAllSteps(List<ProjectStep> projectSteps) {
+	public void addAllStepProjects(List<ProjectStep> projectSteps) {
 		initSteps();
-		steps.addAll(projectSteps);
+		this.projectSteps.addAll(projectSteps);
 		setProjectInProjectSteps(projectSteps);
 	}
 
 	private void setProjectInProjectSteps(List<ProjectStep> projectSteps) {
-		projectSteps.forEach(p -> {
-			p.setProject(this);
-		});
+		projectSteps.forEach(p -> p.setProject(this));
 	}
 
 	private void initSteps() {
-		if (steps == null) {
-			steps = new ArrayList<>();
+		if (this.projectSteps == null) {
+			this.projectSteps = new ArrayList<>();
 		}
 	}
 

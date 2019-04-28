@@ -1,0 +1,39 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">	
+	<changeSet id="1" author="saft">
+		<insert tableName="project_status">
+			<column name="uid_project_status">0</column>
+			<column name="cd_project_status">AGUARDANDO_INICIO</column>
+			<column name="nm_project_status">Aguardando Inicio</column>
+		</insert>
+		<insert tableName="project_status">
+			<column name="uid_project_status">1</column>
+			<column name="cd_project_status">EM_PLANEJAMENTO</column>
+			<column name="nm_project_status">Em Planejamento</column>
+		</insert>
+		<insert tableName="project_status">
+			<column name="uid_project_status">2</column>
+			<column name="cd_project_status">EM_ORCAMENTO</column>
+			<column name="nm_project_status">Em Orçamento</column>
+		</insert>
+		<insert tableName="project_status">
+			<column name="uid_project_status">3</column>
+			<column name="cd_project_status">EM_ANDAMENTO</column>
+			<column name="nm_project_status">Em Andamento</column>
+		</insert>
+		<insert tableName="project_status">
+			<column name="uid_project_status">4</column>
+			<column name="cd_project_status">AGUARDANDO_CLIENTE</column>
+			<column name="nm_project_status">Aguardando Cliente</column>
+		</insert>
+		<insert tableName="project_status">
+			<column name="uid_project_status">5</column>
+			<column name="cd_project_status">FINALIZADO</column>
+			<column name="nm_project_status">Finalizado</column>
+		</insert>
+	</changeSet>
+</databaseChangeLog>
