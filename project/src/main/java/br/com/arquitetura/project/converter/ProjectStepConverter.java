@@ -23,7 +23,7 @@ public class ProjectStepConverter {
 	}
 
 	private static ProjectStep convertToProjectStep(ProjectStepData projectStepData) {
-		Step step = StepConverter.convertToStep(projectStepData.getStepData());
+		Step step = StepConverter.convertToStep(projectStepData.getStep());
 		Project project = ProjectConverter.convertToProject(projectStepData.getUidProject());
 		return new ProjectStep(project, step);
 	}

@@ -28,8 +28,8 @@ public class StepConverter {
 
 	public static Step convertToStep(StepData stepData) {
 		Step step = new Step(stepData.getDescription());
-		if(stepData.getSubStepsData() != null) {
-			stepData.getSubStepsData().stream().forEach(s -> step.addSubProjectStep(convertToStep(s)));
+		if(stepData.getSubSteps() != null) {
+			stepData.getSubSteps().stream().forEach(s -> step.addSubProjectStep(convertToStep(s)));
 		}
 		return step;
 	}

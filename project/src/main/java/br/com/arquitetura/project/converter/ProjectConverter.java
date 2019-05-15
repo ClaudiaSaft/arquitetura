@@ -15,11 +15,21 @@ public class ProjectConverter {
 
 	public static List<ProjectData> convertToProjectData(List<Project> projects) {
 		List<ProjectData> projectsData = new ArrayList<>();
-		projects.forEach(p -> projectsData.add(convertToProjectData(p)));
+		projects.forEach(p -> projectsData.add(convertToProjectDataWithoutSteps(p)));
 		return projectsData;
 	}
 
-	private static ProjectData convertToProjectData(Project project) {
+	private static ProjectData convertToProjectDataWithoutSteps(Project project) {
+		return new ProjectData.Builder(project.getName(), project.getType().getUid(), project.getSubType().getUid())
+				.uid(project.getUid())
+				.description(project.getDescription())
+				.uidArchitect(project.getArchitect().getUid())
+				.uidCustomer(project.getCustomer().getUid())
+				.status(project.getStatus())
+				.build();
+	}
+	
+	public static ProjectData convertToProjectData(Project project) {
 		List<ProjectStepData> projectStepsData = ProjectStepConverter.convertToProjectStepData(project.getProjectSteps());
 		
 		return new ProjectData.Builder(project.getName(), project.getType().getUid(), project.getSubType().getUid())
@@ -27,7 +37,7 @@ public class ProjectConverter {
 				.description(project.getDescription())
 				.uidArchitect(project.getArchitect().getUid())
 				.uidCustomer(project.getCustomer().getUid())
-				.projectStepsData(projectStepsData)
+				.projectSteps(projectStepsData)
 				.status(project.getStatus())
 				.build();
 	}
@@ -39,7 +49,7 @@ public class ProjectConverter {
 				.uidCustomer(projectData.getUidCustomer())
 				.build();
 		
-		project.addAllStepProjects(ProjectStepConverter.convertToProjectStep(projectData.getProjectStepsData()));
+		project.addAllStepProjects(ProjectStepConverter.convertToProjectStep(projectData.getProjectSteps()));
 
 		return project;
 	}

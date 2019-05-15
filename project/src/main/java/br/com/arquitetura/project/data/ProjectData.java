@@ -18,14 +18,14 @@ public class ProjectData extends ValidationFiedsData{
 	private Long uidProjectSubType;
 	private boolean template;
 	private ProjectStatusEnum status;
-	private List<ProjectStepData> projectStepsData;
+	private List<ProjectStepData> projectSteps;
 	
 	public ProjectData() {
 	}
 	
 	private ProjectData(Long uid, String name, String description, Long uidCustomer, Long uidArchitect,
 			Long uidProjectType, Long uidProjectSubType, ProjectStatusEnum status, boolean template,
-			List<ProjectStepData> projectStepsData) {
+			List<ProjectStepData> projectSteps) {
 		this.uid = uid;
 		this.status = status;
 		this.name = name;
@@ -35,7 +35,7 @@ public class ProjectData extends ValidationFiedsData{
 		this.uidProjectType = uidProjectType;
 		this.uidProjectSubType = uidProjectSubType;
 		this.template = template;
-		this.projectStepsData = projectStepsData;
+		this.projectSteps = projectSteps;
 	}
 
 	public Long getUid() {
@@ -74,8 +74,8 @@ public class ProjectData extends ValidationFiedsData{
 		return template;
 	}
 
-	public List<ProjectStepData> getProjectStepsData() {
-		return Collections.unmodifiableList(projectStepsData);
+	public List<ProjectStepData> getProjectSteps() {
+		return projectSteps != null ? Collections.unmodifiableList(projectSteps) : projectSteps;
 	}
 	
 	public static class Builder {
@@ -88,7 +88,7 @@ public class ProjectData extends ValidationFiedsData{
 		private Long uidProjectSubType;
 		private boolean template;
 		private ProjectStatusEnum status;
-		private List<ProjectStepData> projectStepsData;
+		private List<ProjectStepData> projectSteps;
 		
 		public Builder(String name, Long uidProjectType, Long uidProjectSubType) {
 			this.name = name;
@@ -126,13 +126,13 @@ public class ProjectData extends ValidationFiedsData{
 			return this;
 		}
 		
-		public Builder projectStepsData(List<ProjectStepData> projectStepsData) {
-			this.projectStepsData = projectStepsData;
+		public Builder projectSteps(List<ProjectStepData> projectSteps) {
+			this.projectSteps = projectSteps;
 			return this;
 		}
 
 		public ProjectData build() {
-			return new ProjectData(uid, name, description, uidCustomer, uidArchitect, uidProjectType, uidProjectSubType, status, template, projectStepsData);
+			return new ProjectData(uid, name, description, uidCustomer, uidArchitect, uidProjectType, uidProjectSubType, status, template, projectSteps);
 		}
 	}
 	

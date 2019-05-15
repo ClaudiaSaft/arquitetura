@@ -14,7 +14,7 @@ public class StepData extends ValidationFiedsData{
 	private String description;
 	private StepStatusEnum status;
 	private Long uidStepOwner;
-	private List<StepData> subStepsData;
+	private List<StepData> subSteps;
 	
 	public StepData() {
 	}
@@ -40,18 +40,18 @@ public class StepData extends ValidationFiedsData{
 		return uidStepOwner;
 	}	
 
-	public List<StepData> getSubStepsData() {
-		if(subStepsData == null) {
+	public List<StepData> getSubSteps() {
+		if(subSteps == null) {
 			return new ArrayList<>();
 		}
-		return Collections.unmodifiableList(subStepsData);
+		return Collections.unmodifiableList(subSteps);
 	}
 	
 	public void addSubProjectStep(StepData stepData) {
-		if(subStepsData == null) {
-			subStepsData = new ArrayList<>();
+		if(subSteps == null) {
+			subSteps = new ArrayList<>();
 		}
-		subStepsData.add(stepData);
+		subSteps.add(stepData);
 		stepData.uidStepOwner = this.getUid();
 	}
 

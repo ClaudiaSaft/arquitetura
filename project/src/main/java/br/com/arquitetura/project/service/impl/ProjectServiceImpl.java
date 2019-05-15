@@ -50,4 +50,10 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new ProjectNotFoundException();
 		}
 	}
+
+	@Override
+	public ProjectData findByUid(Long uidProject) {
+		Project projectDataBase = getProjectById(uidProject);
+		return ProjectConverter.convertToProjectData(projectDataBase);
+	}
 }

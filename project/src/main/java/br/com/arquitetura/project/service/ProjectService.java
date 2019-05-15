@@ -12,4 +12,6 @@ public interface ProjectService {
 
 	void update(ProjectData projectData);
 
+	ProjectData findByUid(Long uidProject);
+
 }

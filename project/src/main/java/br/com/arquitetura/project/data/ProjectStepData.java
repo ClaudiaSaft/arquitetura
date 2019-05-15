@@ -6,16 +6,16 @@ public class ProjectStepData {
 
 	private Long uid;
 	private Long uidProject;
-	private StepData stepData;
+	private StepData step;
 	private StepStatusEnum status;
 	
 	public ProjectStepData() {
 	}
 	
-	public ProjectStepData(Long uid, Long uidProject, StepData stepData, StepStatusEnum status) {
+	public ProjectStepData(Long uid, Long uidProject, StepData step, StepStatusEnum status) {
 		this.uid = uid;
 		this.uidProject = uidProject;
-		this.stepData = stepData;
+		this.step = step;
 		this.status = status;
 	}
 
@@ -27,8 +27,8 @@ public class ProjectStepData {
 		return uidProject;
 	}
 	
-	public StepData getStepData() {
-		return stepData;
+	public StepData getStep() {
+		return step;
 	}
 	
 	public StepStatusEnum getStatus() {

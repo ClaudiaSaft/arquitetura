@@ -21,7 +21,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
 	private static final String CLIEN_ID = "apparquitetura";
 	private static final String CLIENT_SECRET = "{noop}arquiteturasc";
-	private static final String GRANT_TYPE_PASSWORD = "password";
+	private static final String GRANT_TYPE = "password";
 	private static final String AUTHORIZATION_CODE = "authorization_code";
 	private static final String REFRESH_TOKEN = "refresh_token";
 	private static final String SCOPE_READ = "read";
@@ -56,7 +56,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 			.withClient(CLIEN_ID)
-			.authorizedGrantTypes(GRANT_TYPE_PASSWORD, REFRESH_TOKEN, AUTHORIZATION_CODE)
+			.authorizedGrantTypes(GRANT_TYPE, REFRESH_TOKEN, AUTHORIZATION_CODE)
 			.secret(CLIENT_SECRET)
 			.scopes(SCOPE_READ, SCOPE_WRITE);
 	}

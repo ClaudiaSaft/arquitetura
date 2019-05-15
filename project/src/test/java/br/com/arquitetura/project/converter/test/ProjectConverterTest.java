@@ -68,14 +68,14 @@ public class ProjectConverterTest {
 
 		
 		ProjectData projectData = new ProjectData.Builder("Project Name", 1L, 1L)
-				.projectStepsData(projectStepsData)
+				.projectSteps(projectStepsData)
 				.build();
 		
-		assertEquals(2, projectData.getProjectStepsData().size());
-		assertEquals("Step Data 1 description", projectData.getProjectStepsData().get(0).getStepData().getDescription());
-		assertEquals(1, projectData.getProjectStepsData().get(0).getStepData().getSubStepsData().size());
-		assertEquals(2, projectData.getProjectStepsData().get(0).getStepData().getSubStepsData().get(0).getSubStepsData().size());
-		assertEquals("Step Data 5 description", projectData.getProjectStepsData().get(1).getStepData().getDescription());
+		assertEquals(2, projectData.getProjectSteps().size());
+		assertEquals("Step Data 1 description", projectData.getProjectSteps().get(0).getStep().getDescription());
+		assertEquals(1, projectData.getProjectSteps().get(0).getStep().getSubSteps().size());
+		assertEquals(2, projectData.getProjectSteps().get(0).getStep().getSubSteps().get(0).getSubSteps().size());
+		assertEquals("Step Data 5 description", projectData.getProjectSteps().get(1).getStep().getDescription());
 	}
 
 }
